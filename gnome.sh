@@ -21,12 +21,12 @@ makepkg -si --noconfirm
 #pikaur -S --noconfirm auto-cpufreq
 #sudo systemctl enable --now auto-cpufreq
 
-sudo pacman -S --noconfirm gdm gnome gnome-extra firefox gnome-tweaks chrome-gnome-shell simplescreenrecorder arc-gtk-theme arc-icon-theme obs-studio vlc
+sudo pacman -S gdm gnome gnome-extra firefox gnome-tweaks chrome-gnome-shell simplescreenrecorder arc-gtk-theme arc-icon-theme obs-studio vlc
 
 sudo flatpak install -y spotify
 sudo flatpak install -y kdenlive
 
 sudo systemctl enable gdm
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
-sleep 5
+#sleep 5
 #sudo reboot
