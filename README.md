@@ -10,14 +10,70 @@ Remember that the first part of the Arch Linux install is manual, that is you wi
 A small summary:
 
 1. If needed, load your keymap
-2. Refresh the servers with pacman -Syy
-3. Partition the disk
-4. Format the partitions
-5. Mount the partitions
-6. Install the base packages into /mnt (pacstrap /mnt base linux linux-firmware git vim intel-ucode (or amd-ucode))
-7. Generate the FSTAB file with genfstab -U /mnt >> /mnt/etc/FSTAB
-8. Chroot in with arch-chroot /mnt
-9. Download the git repository with git clone https://gitlab.com/eflinux/arch-basic
-10. cd arch-basic
-11. chmod +x install-uefi.sh
-12. run with ./install-uefi.sh
+ls /usr/share/kbd/keymaps/**/*.map.gz
+loadkeys de-latin1
+fonts /usr/share/kbd/consolefonts/ to change setfont
+
+timedatectl set-ntp true
+timedatectl status
+
+2. Prepare the disk
+lsblk
+cfdisk /dev/nvme0n1
+
+mksf.btrfs -f /dev/nvme0n1p6
+mount /dev/nvme0n1p6 /mnt
+cd /mnt
+btrfs subvolume create @
+btrfs subvolume create @home
+btrfs subvolume create @var
+cd
+umount /mnt
+mount -o noatime,compress=zstd,space_cache,discard=async,subvol=@ /mnt
+mkdir /mnt{boot,home,var}
+mount -o noatime,compress=zstd,space_cache,discard=async,subvol=@home /mnt/home
+mount -o noatime,compress=zstd,space_cache,discard=async,subvol=@var /mnt/var
+mount /dev/nvme0n1p1 /mnt/boot
+lsblk
+
+
+3. Install the base packages into /mnt 
+pacstrap /mnt base linux linux-firmware git nano intel-ucode btrfs-progs
+
+4. Generate the FSTAB file
+genfstab -U /mnt >> /mnt/etc/FSTAB
+5. Chroot in with 
+arch-chroot /mnt
+cat /etc/fstab
+
+6. Download the git repository with 
+git clone https://github.com/durgeshkumar08/linuxbasics
+install install-uefi.sh
+
+change root and user password
+
+
+exit
+umount -a
+reboot
+
+7setup zram
+
+git clone https://aur.archlinux.org/paru-bin
+cd paru-bin
+makepkg -si
+paru -S zramd
+sudo nano /etc/default/zramd
+mar ram to 2048
+sudo systemctl enable --now zramd.service
+lsblk
+
+8 install gnome
+cp -r /linuxbasics .
+install gnome.
+reboot
+
+9 install timeshift
+paru -S timeshift-bin timeshift-autosnap
+
+

@@ -10,9 +10,9 @@ sudo firewall-cmd --add-port=1025-65535/tcp --permanent
 sudo firewall-cmd --add-port=1025-65535/udp --permanent
 sudo firewall-cmd --reload
 
-git clone https://aur.archlinux.org/pikaur.git
-cd pikaur/
-makepkg -si --noconfirm
+# git clone https://aur.archlinux.org/pikaur.git
+# cd pikaur/
+# makepkg -si --noconfirm
 
 #pikaur -S --noconfirm system76-power
 #sudo systemctl enable --now system76-power
