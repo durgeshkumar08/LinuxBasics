@@ -3,14 +3,14 @@
 sudo timedatectl set-ntp true
 sudo hwclock --systohc
 
-sudo reflector -c Germany -a 12 --sort rate --save /etc/pacman.d/mirrorlist
-sudo pacman -Syy
+#sudo reflector -c Germany -a 12 --sort rate --save /etc/pacman.d/mirrorlist
+#sudo pacman -Syy
 
 sudo firewall-cmd --add-port=1025-65535/tcp --permanent
 sudo firewall-cmd --add-port=1025-65535/udp --permanent
 sudo firewall-cmd --reload
 
-# git clone https://aur.archlinux.org/pikaur.git
+git clone https://aur.archlinux.org/paru-bin
 # cd pikaur/
 # makepkg -si --noconfirm
 
@@ -21,7 +21,7 @@ sudo firewall-cmd --reload
 #pikaur -S --noconfirm auto-cpufreq
 #sudo systemctl enable --now auto-cpufreq
 
-sudo pacman -S gdm gnome gnome-extra firefox gnome-tweaks chrome-gnome-shell simplescreenrecorder arc-gtk-theme arc-icon-theme obs-studio vlc
+sudo pacman -S gdm gnome gnome-extra firefox gnome-tweaks gnome-software-packagekit-plugin archlinux-appstream-data  simplescreenrecorder arc-gtk-theme arc-icon-theme obs-studio vlc
 
 sudo flatpak install -y spotify
 sudo flatpak install -y kdenlive
